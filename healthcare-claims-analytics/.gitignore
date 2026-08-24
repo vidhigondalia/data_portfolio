@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# Streamlit secrets — real credentials, never commit
+.streamlit/secrets.toml
+
 # Python
 __pycache__/
 *.py[cod]
