@@ -10,11 +10,17 @@ hardcoded; see .streamlit/secrets.toml.example.
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
+
+# Resolve .env from the project, not the working directory, so the app behaves
+# the same whether launched from here or via the repo-root entrypoint.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 st.set_page_config(page_title="Claims Denial Dashboard", page_icon="🏥", layout="wide")
 
@@ -51,7 +57,7 @@ def connection_url() -> str:
     try:
         url = st.secrets["SUPABASE_DB_URL"]
     except Exception:
-        url = os.getenv("SUPABASE_DB_URL")      # local dev via .env
+        url = os.getenv("SUPABASE_DB_URL")      # local dev via .env (loaded above)
     if not url:
         st.error(
             "No database connection configured. Copy "
