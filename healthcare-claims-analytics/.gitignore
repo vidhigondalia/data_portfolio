@@ -32,6 +32,8 @@ htmlcov/
 *.sqlite3
 data/*.csv
 data/*.parquet
+# Generator output — reproducible from SEED, not worth versioning
+data_generation/output/
 
 # IDE / OS
 .idea/
