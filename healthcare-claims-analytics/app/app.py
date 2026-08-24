@@ -184,11 +184,12 @@ with st.sidebar:
     date_range = st.date_input("Date of service", value=(lo.date(), hi.date()),
                                min_value=lo.date(), max_value=hi.date())
     payer_types = st.multiselect("Payer type", PAYER_TYPE_ORDER, default=PAYER_TYPE_ORDER)
-    # 20k claims over 900 CPT/ICD pairings averages ~22 each, so the usable
-    # threshold range is narrow — above ~37 nothing qualifies at all.
-    min_claims = st.slider("Min claims per CPT/ICD pairing", 10, 40, 25, step=5,
+    # 100k claims over 900 CPT/ICD pairings averages ~111 each (range 81-154),
+    # so 100 is selective without emptying the table; past ~125 almost nothing
+    # qualifies. Recalibrate these bounds if NUM_CLAIMS changes.
+    min_claims = st.slider("Min claims per CPT/ICD pairing", 50, 125, 100, step=25,
                            help="Low-volume pairings produce unstable denial rates. "
-                                "Few pairings exceed ~35 claims at the current data volume.")
+                                "Most pairings hold 80-150 claims at the current data volume.")
 
 if not isinstance(date_range, (tuple, list)) or len(date_range) != 2:
     st.info("Select a start and end date.")
@@ -294,7 +295,6 @@ else:
     lo_n, hi_n = int(pairs.claims.min()), int(pairs.claims.max())
     st.caption(
         f"Pairings with at least {min_claims} claims in the selected range "
-        f"(these ten hold {lo_n}–{hi_n} claims each). At this sample size a few "
-        "denials swing the rate several points, so treat the ranking as "
-        "indicative rather than conclusive."
+        f"(these ten hold {lo_n}–{hi_n} claims each). Rates are still estimates — "
+        "expect a couple of points of sampling noise either way."
     )

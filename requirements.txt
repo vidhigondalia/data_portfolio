@@ -1,0 +1,3 @@
+# Streamlit Community Cloud looks for a dependency file at the repository root.
+# The real list lives with the project; this just points at it.
+-r healthcare-claims-analytics/requirements.txt

@@ -27,7 +27,7 @@ from faker import Faker
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = Path(__file__).resolve().parent / "output"
 
-DEFAULT_CLAIMS = 20_000
+DEFAULT_CLAIMS = 100_000
 DEFAULT_SEED = 42
 END_DATE = date(2025, 12, 31)
 START_DATE = date(2024, 1, 1)          # two-year date dimension

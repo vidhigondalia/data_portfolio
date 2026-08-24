@@ -1,8 +1,11 @@
-pandas
-numpy
-faker
-sqlalchemy
-psycopg2-binary
-python-dotenv
-streamlit
-plotly
+# Pinned so a future breaking release can't change the app underneath us.
+# Bump deliberately, then re-run the app and the pipeline to confirm.
+
+pandas==3.0.5
+numpy==2.5.2
+faker==40.37.0
+sqlalchemy==2.0.52
+psycopg2-binary==2.9.12
+python-dotenv==1.2.3
+streamlit==1.62.0
+plotly==6.9.0
