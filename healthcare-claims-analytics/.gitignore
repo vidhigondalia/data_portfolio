@@ -38,6 +38,9 @@ data/*.parquet
 # Generator output — reproducible from SEED, not worth versioning
 data_generation/output/
 
+# Ask-the-Data fallback log (used only when the query_log table is unreachable)
+app/logs/
+
 # IDE / OS
 .idea/
 .vscode/
