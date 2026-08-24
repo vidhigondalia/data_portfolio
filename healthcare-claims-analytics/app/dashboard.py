@@ -7,30 +7,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from db import date_bounds, run_query
-
-# Validated categorical slots (blue / orange / aqua), light and dark steps.
-# Ordering is the colorblind-safety mechanism — assign in order, never cycle.
-PALETTE = {
-    "light": {"series": ["#2a78d6", "#eb6834", "#1baf7a"],
-              "text": "#0b0b0b", "muted": "#52514e", "grid": "#e6e5e1"},
-    "dark":  {"series": ["#3987e5", "#d95926", "#199e70"],
-              "text": "#ffffff", "muted": "#c3c2b7", "grid": "#383835"},
-}
-# Fixed hue per payer type so a filter change never repaints the survivors.
-PAYER_TYPE_ORDER = ["Medicare", "Medicaid", "Commercial"]
-
-
-def active_theme() -> dict:
-    try:
-        base = st.context.theme.type
-    except Exception:
-        base = st.get_option("theme.base") or "light"
-    return PALETTE["dark" if base == "dark" else "light"]
-
-
-THEME = active_theme()
-SERIES = dict(zip(PAYER_TYPE_ORDER, THEME["series"]))
-
+from theme import PAYER_TYPE_ORDER, SERIES, THEME, style
 
 # WHERE fragment shared by every query, so all four visuals honour the filters.
 FILTERS = """
